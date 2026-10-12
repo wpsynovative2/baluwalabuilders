@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-navy: #2a354e;
+  --color-gold: #dbb87e;
+  --color-bronze: #a97e44;
+  --color-body: #7a7a7a;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-afterglow), Georgia, serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --animate-float: float 4s ease-in-out infinite alternate;
+  --animate-pulse-scale: pulse-scale 1s ease-in-out infinite alternate;
+  --animate-zoom-in: zoom-in 0.5s ease-out both;
+  --animate-fade-in: fade-in 0.3s ease-out both;
+
+  @keyframes float {
+    from {
+      transform: translate(0, 0);
+    }
+    to {
+      transform: translate(7px, 5px);
+    }
+  }
+  @keyframes pulse-scale {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.1);
+    }
+  }
+  @keyframes zoom-in {
+    from {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-body);
+  font-family: var(--font-sans);
+}
+
+/* In the base layer so utilities such as `outline-none` can override it. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-bronze);
+    outline-offset: 2px;
+  }
+}
+
+/* The reCAPTCHA v3 badge is replaced by the disclosure text under each form. */
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-float,
+  .animate-pulse-scale,
+  .animate-zoom-in {
+    animation: none;
+  }
 }

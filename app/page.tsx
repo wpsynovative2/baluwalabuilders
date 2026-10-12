@@ -1,69 +1,142 @@
-import Image from "next/image";
+import Link from "next/link";
+import AboutIntro from "@/components/AboutIntro";
+import Counter from "@/components/Counter";
+import HeroSlider, { type Slide } from "@/components/HeroSlider";
+import { ArrowRightIcon } from "@/components/icons";
+import { SectionHeading } from "@/components/PageBanner";
+import ProjectCard from "@/components/ProjectCard";
+import { projectsByStatus } from "@/lib/projects";
+import { site } from "@/lib/site";
+
+const AVIARA_URL = "https://aviaraandheri.com/home/";
+
+const slides: Slide[] = [
+  {
+    src: "/images/slider/slide-1.png",
+    alt: "Aviara – Codeword Live High: your lifetime boarding pass",
+    href: AVIARA_URL,
+  },
+  {
+    src: "/images/slider/slide-2.png",
+    alt: "Aviara – premium 1 & 2 bed deck residences on Sahar Road, Andheri East",
+    href: AVIARA_URL,
+  },
+  {
+    src: "/images/slider/slide-3.png",
+    alt: "Aviara – boarding for international living starts soon",
+    href: AVIARA_URL,
+  },
+];
+
+const viewAllLink =
+  "inline-flex items-center gap-2 border-b-2 border-bronze pb-1 text-sm font-semibold uppercase tracking-wide text-navy transition-colors hover:text-bronze";
 
 export default function Home() {
+  const ongoing = projectsByStatus("ongoing");
+  const upcoming = projectsByStatus("upcoming");
+  const completed = projectsByStatus("completed");
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+    <>
+      <h1 className="sr-only">
+        {site.name} – real estate developers in Mumbai since {site.foundedYear}
+      </h1>
+
+      <HeroSlider slides={slides} />
+
+      <section className="bg-[#02072b] bg-[url(/images/backgrounds/blurry-wallpaper.jpg)] bg-cover bg-center px-6 pb-12 pt-10 text-white lg:bg-fixed">
+        <h2 className="text-center font-display text-[1.4rem] font-semibold md:text-[2.5rem]">
+          COMPANY PROFILE
+        </h2>
+        <div className="mx-auto mt-10 flex max-w-[1140px] items-center justify-center">
+          <div className="flex-1 border-r-2 border-white py-3 pr-5 text-right md:pr-8">
+            <Counter
+              value={2026 - site.foundedYear}
+              sinceYear={site.foundedYear}
+              suffix="+"
+              className="block text-5xl font-bold leading-none text-gold md:text-7xl"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <p className="mt-2 text-sm font-medium md:text-xl">Years of Legacy</p>
+          </div>
+          <div className="flex-1 py-3 pl-5 text-left md:pl-8">
+            <Counter
+              value={completed.length}
+              suffix="+"
+              className="block text-5xl font-bold leading-none md:text-7xl"
+            />
+            <p className="mt-2 text-sm font-medium text-gold md:text-xl">Completed Projects</p>
+          </div>
         </div>
-      </main>
-    </div>
+        <p className="mx-auto mt-10 max-w-3xl text-center text-[15px] md:text-xl">
+          A journey marked by consistency, quality, and a commitment to delivering enduring
+          spaces
+        </p>
+      </section>
+
+      <AboutIntro />
+
+      <section className="relative bg-navy bg-[url(/images/backgrounds/tall-city-building.jpg)] bg-cover bg-center px-6 py-16 md:py-20 lg:bg-fixed">
+        <div className="absolute inset-0 bg-black/[0.78]" aria-hidden="true" />
+        <div className="relative mx-auto flex max-w-[1140px] flex-col items-center">
+          <SectionHeading
+            tone="light"
+            subtitle="Projects That Define Our Journey"
+            title={
+              <>
+                From Vision to Reality <br className="hidden md:block" />
+                Our Signature Developments
+              </>
+            }
+          />
+          <Link
+            href="/contact-us"
+            className="mt-10 rounded-[5px] bg-bronze px-8 py-3.5 font-medium text-white shadow-[0_0_22px_0_#fffdfd] transition duration-300 hover:scale-105 hover:bg-navy"
+          >
+            Contact Us Today
+          </Link>
+        </div>
+      </section>
+
+      {ongoing.length > 0 && (
+        <section className="pt-16 md:pt-20">
+          <div className="px-6">
+            <SectionHeading subtitle="Now booking in the heart of Andheri" title="ONGOING PROJECT" />
+          </div>
+          {ongoing.map((project, i) => (
+            <ProjectCard key={project.slug} project={project} reverse={i % 2 === 1} headingLevel="h3" />
+          ))}
+        </section>
+      )}
+
+      <section className="pt-10 md:pt-14">
+        <div className="px-6">
+          <SectionHeading
+            subtitle="A glimpse into tomorrow’s finest living spaces"
+            title="UPCOMING PROJECTS"
+          />
+        </div>
+        {upcoming.map((project, i) => (
+          <ProjectCard key={project.slug} project={project} reverse={i % 2 === 1} headingLevel="h3" />
+        ))}
+      </section>
+
+      <section className="pb-16 pt-10 md:pt-14">
+        <div className="px-6">
+          <SectionHeading
+            subtitle="Now helping you find home sweet home"
+            title="COMPLETED PROJECTS"
+          />
+        </div>
+        {completed.slice(0, 2).map((project, i) => (
+          <ProjectCard key={project.slug} project={project} reverse={i % 2 === 1} headingLevel="h3" />
+        ))}
+        <p className="mt-4 text-center">
+          <Link href="/completed-projects" className={viewAllLink}>
+            View all completed projects
+            <ArrowRightIcon />
+          </Link>
+        </p>
+      </section>
+    </>
   );
 }
