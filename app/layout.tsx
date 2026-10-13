@@ -44,10 +44,6 @@ export const metadata: Metadata = {
     locale: "en_IN",
     images: [{ url: "/images/slider/slide-2.png", width: 1600, height: 979 }],
   },
-  icons: {
-    icon: [{ url: "/images/logo-gold-blue-300.png", sizes: "192x192", type: "image/png" }],
-    apple: "/images/logo-gold-blue-300.png",
-  },
 };
 
 export const viewport: Viewport = {
